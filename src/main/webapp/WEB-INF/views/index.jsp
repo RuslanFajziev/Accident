@@ -20,25 +20,36 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<div class="container-sm">Hello : ${user}</div>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Список имен
+                Список авто-нарушений
             </div>
             <div class="card-body">
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Имена</th>
+                        <th scope="col">id</th>
+                        <th scope="col">name</th>
+                        <th scope="col">text</th>
+                        <th scope="col">address</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${names}" var="name">
+                    <c:forEach items="${accidents}" var="accident">
                         <tr>
                             <td>
-                                <c:out value="${name}"/>
+                                <c:out value="${accident.getValue().id}"/>
+                            </td>
+                            <td>
+                                <c:out value="${accident.getValue().name}"/>
+                            </td>
+                            <td>
+                                <c:out value="${accident.getValue().text}"/>
+                            </td>
+                            <td>
+                                <c:out value="${accident.getValue().address}"/>
                             </td>
                         </tr>
                     </c:forEach>
