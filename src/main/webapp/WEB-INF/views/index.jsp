@@ -23,6 +23,7 @@
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
+            <a href="<c:url value='/create'/>">Добавить инцидент</a>
             <div class="card-header">
                 Список авто-нарушений
             </div>

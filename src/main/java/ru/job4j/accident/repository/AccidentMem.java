@@ -4,8 +4,31 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.accident.model.Accident;
 
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
 public class AccidentMem {
-    HashMap<Integer, Accident> accidents;
+    private static HashMap<Integer, Accident> accidents = new HashMap<>();
+    private static AtomicInteger id = new AtomicInteger();
+
+    public AccidentMem() {
+    }
+
+    public static AccidentMem getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    private static final class Holder {
+        private static final AccidentMem INSTANCE = new AccidentMem();
+    }
+
+    public HashMap<Integer, Accident> getAccidents() {
+        return accidents;
+    }
+
+    public static void create(Accident accident) {
+        int idAcc = id.incrementAndGet();
+        accidents.put(idAcc, accident);
+        accident.setId(idAcc);
+    }
 }
