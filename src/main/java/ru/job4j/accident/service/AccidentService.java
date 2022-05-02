@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 @Service
 public class AccidentService {
-    private final AccidentMem accidentMem = AccidentMem.getInstance();
+    private final AccidentMem accidentMem = new AccidentMem();
 
     public void save(Accident accident) {
         accidentMem.create(accident);

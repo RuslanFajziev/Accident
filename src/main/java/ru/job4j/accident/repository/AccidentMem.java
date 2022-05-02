@@ -11,17 +11,6 @@ public class AccidentMem {
     private static HashMap<Integer, Accident> accidents = new HashMap<>();
     private static AtomicInteger id = new AtomicInteger();
 
-    public AccidentMem() {
-    }
-
-    public static AccidentMem getInstance() {
-        return Holder.INSTANCE;
-    }
-
-    private static final class Holder {
-        private static final AccidentMem INSTANCE = new AccidentMem();
-    }
-
     public HashMap<Integer, Accident> getAccidents() {
         return accidents;
     }
