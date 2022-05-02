@@ -15,9 +15,18 @@ public class AccidentMem {
         return accidents;
     }
 
-    public static void create(Accident accident) {
-        int idAcc = id.incrementAndGet();
-        accidents.put(idAcc, accident);
-        accident.setId(idAcc);
+    public static void createOrUpdate(Accident accident) {
+        int idAcc = accident.getId();
+        if (idAcc != 0) {
+            accidents.put(idAcc, accident);
+        } else {
+            idAcc = id.incrementAndGet();
+            accidents.put(idAcc, accident);
+            accident.setId(idAcc);
+        }
+    }
+
+    public static Accident find(int id) {
+        return accidents.get(id);
     }
 }

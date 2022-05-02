@@ -22,8 +22,8 @@
 <body>
 <div class="container pt-3">
     <div class="row">
+        <a class="btn btn-dark" href="<c:url value='/create'/>" role="button">Добавить инцидент</a>
         <div class="card" style="width: 100%">
-            <a href="<c:url value='/create'/>">Добавить инцидент</a>
             <div class="card-header">
                 Список авто-нарушений
             </div>
@@ -41,7 +41,9 @@
                     <c:forEach items="${accidents}" var="accident">
                         <tr>
                             <td>
-                                <c:out value="${accident.getValue().id}"/>
+                                <a href=/accident/update?id=<c:out value="${accident.getValue().id}"/>>
+                                    <c:out value="${accident.getValue().id}"/>
+                                </a>
                             </td>
                             <td>
                                 <c:out value="${accident.getValue().name}"/>

@@ -10,8 +10,12 @@ import java.util.HashMap;
 public class AccidentService {
     private final AccidentMem accidentMem = new AccidentMem();
 
-    public void save(Accident accident) {
-        accidentMem.create(accident);
+    public void createOrUpdate(Accident accident) {
+        accidentMem.createOrUpdate(accident);
+    }
+
+    public Accident find(int id) {
+        return accidentMem.find(id);
     }
 
     public HashMap<Integer, Accident> getAccidents() {

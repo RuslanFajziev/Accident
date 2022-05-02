@@ -1,4 +1,5 @@
-<%--
+<%@ page import="ru.job4j.accident.model.Accident" %>
+<%@ page import="ru.job4j.accident.service.AccidentService" %><%--
   Created by IntelliJ IDEA.
   User: ruslan_fly
   Date: 28.04.2022
@@ -27,26 +28,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+<%
+    String id = request.getParameter("id");
+    Accident accident = new Accident("empty name", "empty text", "empty address");
+    if (id != null) {
+        AccidentService accidentService = new AccidentService();
+        accident = accidentService.find(Integer.valueOf(id));
+    }
+%>
 <div class="card-body" style="width: 50%">
-    <form action="<c:url value='/save'/>" method='POST'>
+    <form action="<c:url value='/updateEnd'/>" method='POST'>
         <table class="table">
+            <input type='hidden' name='id' id="id" value="<%=accident.getId()%>">
             <tbody>
             <tr>
                 <td>
                     <label for="name">Название</label>
-                    <input required type='text' name='name' id="name">
+                    <input required type='text' name='name' id="name" value="<%=accident.getName()%>">
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="text">Содержимое правонарушения</label>
-                    <input required type='text' name='text' id="text">
+                    <input required type='text' name='text' id="text" value="<%=accident.getText()%>">
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="address">Адрес правонарушения</label>
-                    <input required type='text' name='address' id="address">
+                    <input required type='text' name='address' id="address" value="<%=accident.getAddress()%>">
                 </td>
             </tr>
             <tr>
