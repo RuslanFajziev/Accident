@@ -4,11 +4,15 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.repository.AccidentMem;
 
-import java.util.HashMap;
+import java.util.Collection;
 
 @Service
 public class AccidentService {
-    private final AccidentMem accidentMem = new AccidentMem();
+    private AccidentMem accidentMem;
+
+    public AccidentService() {
+        this.accidentMem = new AccidentMem();
+    }
 
     public void createOrUpdate(Accident accident) {
         accidentMem.createOrUpdate(accident);
@@ -18,7 +22,7 @@ public class AccidentService {
         return accidentMem.find(id);
     }
 
-    public HashMap<Integer, Accident> getAccidents() {
+    public Collection<Accident> getAccidents() {
         return accidentMem.getAccidents();
     }
 }

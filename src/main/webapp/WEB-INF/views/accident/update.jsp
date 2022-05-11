@@ -32,8 +32,11 @@
     String id = request.getParameter("id");
     Accident accident = new Accident("empty name", "empty text", "empty address");
     if (id != null) {
-        AccidentService accidentService = new AccidentService();
-        accident = accidentService.find(Integer.valueOf(id));
+        String name = request.getParameter("name");
+        String text = request.getParameter("text");
+        String address = request.getParameter("address");
+        accident = new Accident(name, text, address);
+        accident.setId(Integer.valueOf(id));
     }
 %>
 <div class="card-body" style="width: 50%">

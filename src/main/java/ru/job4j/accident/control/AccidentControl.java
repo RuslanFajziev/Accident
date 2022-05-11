@@ -4,16 +4,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.service.AccidentService;
 
-import java.util.HashMap;
+import java.util.Collection;
 
 @Controller
 public class AccidentControl {
-    private AccidentService accidentService = new AccidentService();
+    private AccidentService accidentService;
+
+    public AccidentControl() {
+        this.accidentService = new AccidentService();
+    }
 
     @GetMapping("/create")
     public String create() {
@@ -27,8 +30,12 @@ public class AccidentControl {
     }
 
     @GetMapping("/update")
-    public String change(String id, Model model) {
-        model.addAttribute("id", id);
+    public String change(int id, Model model) {
+        Accident accident = accidentService.find(id);
+        model.addAttribute("id", accident.getId());
+        model.addAttribute("name", accident.getName());
+        model.addAttribute("text", accident.getText());
+        model.addAttribute("address", accident.getAddress());
         return "accident/update";
     }
 
@@ -41,7 +48,7 @@ public class AccidentControl {
 
     @GetMapping("/")
     public String index(Model model) {
-        HashMap<Integer, Accident> accidents = accidentService.getAccidents();
+        Collection<Accident> accidents = accidentService.getAccidents();
         model.addAttribute("accidents", accidents);
         return "index";
     }

@@ -41,18 +41,18 @@
                     <c:forEach items="${accidents}" var="accident">
                         <tr>
                             <td>
-                                <a href=/accident/update?id=<c:out value="${accident.getValue().id}"/>>
-                                    <c:out value="${accident.getValue().id}"/>
+                                <a href=/accident/update?id=<c:out value="${accident.id}"/>&name=<c:out value="${accident.name}"/>&text=<c:out value="${accident.text}"/>&address=<c:out value="${accident.address}"/>>
+                                    <c:out value="${accident.id}"/>
                                 </a>
                             </td>
                             <td>
-                                <c:out value="${accident.getValue().name}"/>
+                                <c:out value="${accident.name}"/>
                             </td>
                             <td>
-                                <c:out value="${accident.getValue().text}"/>
+                                <c:out value="${accident.text}"/>
                             </td>
                             <td>
-                                <c:out value="${accident.getValue().address}"/>
+                                <c:out value="${accident.address}"/>
                             </td>
                         </tr>
                     </c:forEach>
