@@ -28,38 +28,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<%
-    String id = request.getParameter("id");
-    Accident accident = new Accident("empty name", "empty text", "empty address");
-    if (id != null) {
-        String name = request.getParameter("name");
-        String text = request.getParameter("text");
-        String address = request.getParameter("address");
-        accident = new Accident(name, text, address);
-        accident.setId(Integer.valueOf(id));
-    }
-%>
 <div class="card-body" style="width: 50%">
     <form action="<c:url value='/updateEnd'/>" method='POST'>
         <table class="table">
-            <input type='hidden' name='id' id="id" value="<%=accident.getId()%>">
+            <input type='hidden' name='id' id="id" value=<c:out value="${accident.id}"/>>
             <tbody>
             <tr>
                 <td>
                     <label for="name">Название</label>
-                    <input required type='text' name='name' id="name" value="<%=accident.getName()%>">
+                    <input required type='text' name='name' id="name" value=<c:out value="${accident.name}"/>>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="text">Содержимое правонарушения</label>
-                    <input required type='text' name='text' id="text" value="<%=accident.getText()%>">
+                    <input required type='text' name='text' id="text" value=<c:out value="${accident.text}"/>>
                 </td>
             </tr>
             <tr>
                 <td>
                     <label for="address">Адрес правонарушения</label>
-                    <input required type='text' name='address' id="address" value="<%=accident.getAddress()%>">
+                    <input required type='text' name='address' id="address" value=<c:out value="${accident.address}"/>>
                 </td>
             </tr>
             <tr>

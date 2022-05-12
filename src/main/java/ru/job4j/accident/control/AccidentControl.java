@@ -30,12 +30,8 @@ public class AccidentControl {
     }
 
     @GetMapping("/update")
-    public String change(int id, Model model) {
-        Accident accident = accidentService.find(id);
-        model.addAttribute("id", accident.getId());
-        model.addAttribute("name", accident.getName());
-        model.addAttribute("text", accident.getText());
-        model.addAttribute("address", accident.getAddress());
+    public String change(@ModelAttribute Accident accident, Model model) {
+        model.addAttribute("accident", accident);
         return "accident/update";
     }
 
