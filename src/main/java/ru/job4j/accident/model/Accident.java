@@ -8,10 +8,13 @@ public class Accident {
     private String text;
     private String address;
 
-    public Accident(String name, String text, String address) {
+    private AccidentType type;
+
+    public Accident(String name, String text, String address, AccidentType type) {
         this.name = name;
         this.text = text;
         this.address = address;
+        this.type = type;
     }
 
     public int getId() {

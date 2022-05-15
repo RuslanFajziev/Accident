@@ -50,6 +50,15 @@
                 </td>
             </tr>
             <tr>
+                <td>Тип:</td>
+                <td>
+                    <select name="type.id">
+                        <c:forEach var="type" items="${types}">
+                            <option value="${type.id}">${type.name}</option>
+                        </c:forEach>
+                    </select>
+            </tr>
+            <tr>
                 <td><input name="submit" type="submit" value="Сохранить"/></td>
             </tr>
             </tbody>
