@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accident.model.Accident;
+import ru.job4j.accident.repository.AccidentMem;
 import ru.job4j.accident.service.AccidentService;
 
 import java.util.Collection;
@@ -14,8 +15,8 @@ import java.util.Collection;
 public class AccidentControl {
     private AccidentService accidentService;
 
-    public AccidentControl() {
-        this.accidentService = new AccidentService();
+    public AccidentControl(AccidentMem accidentMem) {
+        this.accidentService = new AccidentService(accidentMem);
     }
 
     @GetMapping("/create")

@@ -10,8 +10,8 @@ import java.util.Collection;
 public class AccidentService {
     private AccidentMem accidentMem;
 
-    public AccidentService() {
-        this.accidentMem = new AccidentMem();
+    public AccidentService(AccidentMem accidentMem) {
+        this.accidentMem = accidentMem;
     }
 
     public void createOrUpdate(Accident accident) {
