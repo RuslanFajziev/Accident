@@ -52,7 +52,7 @@
             <tr>
                 <td>Тип:</td>
                 <td>
-                    <select name="type.id">
+                    <select name="typeId">
                         <c:forEach var="type" items="${types}">
                             <option value="${type.id}">${type.name}</option>
                         </c:forEach>
