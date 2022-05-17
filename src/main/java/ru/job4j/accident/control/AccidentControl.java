@@ -20,8 +20,8 @@ import java.util.List;
 public class AccidentControl {
     private AccidentService accidentService;
 
-    public AccidentControl(AccidentMem accidentMem) {
-        this.accidentService = new AccidentService(accidentMem);
+    public AccidentControl(AccidentService accidentService) {
+        this.accidentService = accidentService;
     }
 
     @GetMapping("/create")
