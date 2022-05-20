@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
+import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
+import java.util.*;
 
 @Controller
 public class AccidentControl {
@@ -28,11 +29,18 @@ public class AccidentControl {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute Accident accident, int typeId, HttpServletRequest req) {
+    public String save(@ModelAttribute Accident accident, int typeId, int[] rIds) {
+        List<Rule> lstRule = accidentService.getLstRules();
+        Set<Rule> rules = new HashSet<>();
+        for (var id : rIds) {
+            rules.add(lstRule.get(id - 1));
+        }
+        accident.setRules(rules);
+
         AccidentType accType = accidentService.getLstAccType().get(typeId - 1);
         accident.setType(accType);
+
         accidentService.createOrUpdate(accident);
-        String[] ids = req.getParameterValues("rIds");
         return "redirect:/";
     }
 
@@ -45,7 +53,14 @@ public class AccidentControl {
     }
 
     @PostMapping("/updateEnd")
-    public String update(@ModelAttribute Accident accident, int id, int typeId) {
+    public String update(@ModelAttribute Accident accident, int id, int typeId, int[] rIds) {
+        List<Rule> lstRule = accidentService.getLstRules();
+        Set<Rule> rules = new HashSet<>();
+        for (var rid : rIds) {
+            rules.add(lstRule.get(rid - 1));
+        }
+        accident.setRules(rules);
+
         accident.setId(id);
         AccidentType accType = accidentService.getLstAccType().get(typeId - 1);
         accident.setType(accType);
