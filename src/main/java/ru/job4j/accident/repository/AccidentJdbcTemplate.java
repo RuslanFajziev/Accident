@@ -6,7 +6,7 @@ import ru.job4j.accident.model.Accident;
 
 import java.util.List;
 
-@Repository
+//@Repository
 public class AccidentJdbcTemplate {
     private final JdbcTemplate jdbc;
 
@@ -15,18 +15,17 @@ public class AccidentJdbcTemplate {
     }
 
     public Accident save(Accident accident) {
-        jdbc.update("insert into accident (name) values (?)",
-                accident.getName());
+        jdbc.update("insert into accident (name) values (?)", accident.getName());
         return accident;
     }
 
     public List<Accident> getAll() {
-        return jdbc.query("select id, name, text, address from accident", (rs, row) -> {
-            String nameAcc = rs.getString("name");
-            String textAcc = rs.getString("text");
-            String addressAcc = rs.getString("address");
-            Accident accident = new Accident(nameAcc, textAcc, addressAcc);
-            accident.setId(rs.getInt("id"));
+        return jdbc.query("select id, name from accident", (rs, row) -> {
+            Integer id = rs.getInt("id");
+            String name = rs.getString("name");
+            Accident accident = new Accident();
+            accident.setId(id);
+            accident.setName(name);
             return accident;
         });
     }
