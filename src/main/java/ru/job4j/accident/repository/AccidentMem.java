@@ -5,10 +5,7 @@ import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -40,19 +37,19 @@ public class AccidentMem {
         return accidents.get(id);
     }
 
-    public List<AccidentType> getLstAccType() {
-        List<AccidentType> types = new ArrayList<>();
-        types.add(AccidentType.of(1, "Две машины"));
-        types.add(AccidentType.of(2, "Машина и человек"));
-        types.add(AccidentType.of(3, "Машина и велосипед"));
+    public Map<Integer, AccidentType> getLstAccType() {
+        Map<Integer, AccidentType> types = new HashMap<>();
+        types.put(1, AccidentType.of(1, "Две машины"));
+        types.put(2, AccidentType.of(2, "Машина и человек"));
+        types.put(3, AccidentType.of(3, "Машина и велосипед"));
         return types;
     }
 
-    public List<Rule> getLstRules() {
-        List<Rule> rules = new ArrayList<>();
-        rules.add(Rule.of(1, "Статья. 1"));
-        rules.add(Rule.of(2, "Статья. 2"));
-        rules.add(Rule.of(3, "Статья. 3"));
+    public Map<Integer, Rule> getLstRules() {
+        Map<Integer, Rule> rules = new HashMap<>();
+        rules.put(1, Rule.of(1, "Статья. 1"));
+        rules.put(2, Rule.of(2, "Статья. 2"));
+        rules.put(3, Rule.of(3, "Статья. 3"));
         return rules;
     }
 }

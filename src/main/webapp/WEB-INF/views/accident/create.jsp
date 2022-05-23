@@ -54,7 +54,7 @@
                 <td>
                     <select name="typeId">
                         <c:forEach var="type" items="${types}">
-                            <option value="${type.id}">${type.name}</option>
+                            <option value="${type.key}">${type.value.name}</option>
                         </c:forEach>
                     </select>
             </tr>
@@ -63,7 +63,7 @@
                 <td>
                     <select name="rIds" multiple>
                         <c:forEach var="rule" items="${rules}" >
-                            <option value="${rule.id}">${rule.name}</option>
+                            <option value="${rule.key}">${rule.value.name}</option>
                         </c:forEach>
                     </select>
             </tr>

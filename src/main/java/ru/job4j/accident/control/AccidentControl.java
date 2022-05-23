@@ -10,7 +10,6 @@ import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Controller
@@ -30,14 +29,14 @@ public class AccidentControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, int typeId, int[] rIds) {
-        List<Rule> lstRule = accidentService.getLstRules();
-        Set<Rule> rules = new HashSet<>();
+        var mapRule = accidentService.getLstRules();
+        Set<Rule> hashSetRule = new HashSet<>();
         for (var id : rIds) {
-            rules.add(lstRule.get(id - 1));
+            hashSetRule.add(mapRule.get(id));
         }
-        accident.setRules(rules);
+        accident.setRules(hashSetRule);
 
-        AccidentType accType = accidentService.getLstAccType().get(typeId - 1);
+        AccidentType accType = accidentService.getLstAccType().get(typeId);
         accident.setType(accType);
 
         accidentService.createOrUpdate(accident);
@@ -54,15 +53,15 @@ public class AccidentControl {
 
     @PostMapping("/updateEnd")
     public String update(@ModelAttribute Accident accident, int id, int typeId, int[] rIds) {
-        List<Rule> lstRule = accidentService.getLstRules();
-        Set<Rule> rules = new HashSet<>();
+        var mapRule = accidentService.getLstRules();
+        Set<Rule> hashSetRule = new HashSet<>();
         for (var rid : rIds) {
-            rules.add(lstRule.get(rid - 1));
+            hashSetRule.add(mapRule.get(rid));
         }
-        accident.setRules(rules);
+        accident.setRules(hashSetRule);
 
         accident.setId(id);
-        AccidentType accType = accidentService.getLstAccType().get(typeId - 1);
+        AccidentType accType = accidentService.getLstAccType().get(typeId);
         accident.setType(accType);
         accidentService.createOrUpdate(accident);
         return "redirect:/";
