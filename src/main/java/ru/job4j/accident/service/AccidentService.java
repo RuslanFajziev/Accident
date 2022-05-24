@@ -18,6 +18,7 @@ public class AccidentService {
     }
 
     public void createOrUpdate(Accident accident) {
+
         accidentMem.createOrUpdate(accident);
     }
 

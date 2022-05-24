@@ -11,10 +11,23 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Repository
 public class AccidentMem {
     private HashMap<Integer, Accident> accidents;
+    private Map<Integer, AccidentType> types;
+    private Map<Integer, Rule> rules;
     private AtomicInteger id;
 
     public AccidentMem() {
         this.accidents = new HashMap<>();
+
+        this.types = new HashMap<>();
+        this.types.put(1, AccidentType.of(1, "Две машины"));
+        this.types.put(2, AccidentType.of(2, "Машина и человек"));
+        this.types.put(3, AccidentType.of(3, "Машина и велосипед"));
+
+        this.rules = new HashMap<>();
+        this.rules.put(1, Rule.of(1, "Статья. 1"));
+        this.rules.put(2, Rule.of(2, "Статья. 2"));
+        this.rules.put(3, Rule.of(3, "Статья. 3"));
+
         this.id = new AtomicInteger();
     }
 
@@ -38,18 +51,10 @@ public class AccidentMem {
     }
 
     public Map<Integer, AccidentType> getLstAccType() {
-        Map<Integer, AccidentType> types = new HashMap<>();
-        types.put(1, AccidentType.of(1, "Две машины"));
-        types.put(2, AccidentType.of(2, "Машина и человек"));
-        types.put(3, AccidentType.of(3, "Машина и велосипед"));
-        return types;
+        return this.types;
     }
 
     public Map<Integer, Rule> getLstRules() {
-        Map<Integer, Rule> rules = new HashMap<>();
-        rules.put(1, Rule.of(1, "Статья. 1"));
-        rules.put(2, Rule.of(2, "Статья. 2"));
-        rules.put(3, Rule.of(3, "Статья. 3"));
-        return rules;
+        return this.rules;
     }
 }
