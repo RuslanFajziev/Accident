@@ -7,7 +7,6 @@ import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.repository.AccidentMem;
 
 import java.util.Collection;
-import java.util.Map;
 
 @Service
 public class AccidentService {
@@ -30,11 +29,11 @@ public class AccidentService {
         return accidentMem.getAccidents();
     }
 
-    public Map<Integer, AccidentType> getLstAccType() {
+    public Collection<AccidentType> getLstAccType() {
         return accidentMem.getLstAccType();
     }
 
-    public Map<Integer, Rule> getLstRules() {
+    public Collection<Rule> getLstRules() {
         return accidentMem.getLstRules();
     }
 }

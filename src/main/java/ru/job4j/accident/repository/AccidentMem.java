@@ -50,11 +50,11 @@ public class AccidentMem {
         return accidents.get(id);
     }
 
-    public Map<Integer, AccidentType> getLstAccType() {
-        return this.types;
+    public Collection<AccidentType> getLstAccType() {
+        return this.types.values();
     }
 
-    public Map<Integer, Rule> getLstRules() {
-        return this.rules;
+    public Collection<Rule> getLstRules() {
+        return this.rules.values();
     }
 }
