@@ -50,6 +50,14 @@ public class AccidentMem {
         return accidents.get(id);
     }
 
+    public AccidentType findAccidentType(int id) {
+        return types.get(id);
+    }
+
+    public Rule findRule(int id) {
+        return rules.get(id);
+    }
+
     public Collection<AccidentType> getLstAccType() {
         return this.types.values();
     }

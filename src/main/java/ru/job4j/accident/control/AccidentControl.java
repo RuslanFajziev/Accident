@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentService;
 
@@ -29,25 +28,13 @@ public class AccidentControl {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, int typeId, int[] rIds) {
-        Collection<Rule> mapRule = accidentService.getLstRules();
         Set<Rule> hashSetRule = new HashSet<>();
         for (var rId : rIds) {
-            for (Rule rule : mapRule) {
-                if (rule.getId() == rId) {
-                    hashSetRule.add(rule);
-                    break;
-                }
-            }
+            hashSetRule.add(accidentService.findRule(rId));
         }
         accident.setRules(hashSetRule);
 
-        Collection<AccidentType> accidentTypes = accidentService.getLstAccType();
-        for (AccidentType accidentType : accidentTypes) {
-            if (accidentType.getId() == typeId) {
-                accident.setType(accidentType);
-                break;
-            }
-        }
+        accident.setType(accidentService.findAccidentType(typeId));
         accidentService.createOrUpdate(accident);
         return "redirect:/";
     }
@@ -62,26 +49,14 @@ public class AccidentControl {
 
     @PostMapping("/updateEnd")
     public String update(@ModelAttribute Accident accident, int id, int typeId, int[] rIds) {
-        Collection<Rule> mapRule = accidentService.getLstRules();
         Set<Rule> hashSetRule = new HashSet<>();
         for (var rId : rIds) {
-            for (Rule rule : mapRule) {
-                if (rule.getId() == rId) {
-                    hashSetRule.add(rule);
-                    break;
-                }
-            }
+            hashSetRule.add(accidentService.findRule(rId));
         }
         accident.setRules(hashSetRule);
 
         accident.setId(id);
-        Collection<AccidentType> accidentTypes = accidentService.getLstAccType();
-        for (AccidentType accidentType : accidentTypes) {
-            if (accidentType.getId() == typeId) {
-                accident.setType(accidentType);
-                break;
-            }
-        }
+        accident.setType(accidentService.findAccidentType(typeId));
         accidentService.createOrUpdate(accident);
         return "redirect:/";
     }
