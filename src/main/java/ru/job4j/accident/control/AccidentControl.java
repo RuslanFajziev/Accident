@@ -11,7 +11,7 @@ import ru.job4j.accident.service.AccidentService;
 
 import java.util.*;
 
-@Controller
+//@Controller
 public class AccidentControl {
     private AccidentService accidentService;
 

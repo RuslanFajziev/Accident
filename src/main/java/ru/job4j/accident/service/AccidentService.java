@@ -1,47 +1,45 @@
 package ru.job4j.accident.service;
 
-import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.Accident;
 import ru.job4j.accident.model.AccidentType;
 import ru.job4j.accident.model.Rule;
-import ru.job4j.accident.repository.AccidentMem;
+import ru.job4j.accident.repository.AccidentMemRepos;
 
 import java.util.Collection;
 
-@Service
+//@Service
 public class AccidentService {
-    private AccidentMem accidentMem;
+    private AccidentMemRepos accidentMemRepos;
 
-    public AccidentService(AccidentMem accidentMem) {
-        this.accidentMem = accidentMem;
+    public AccidentService(AccidentMemRepos accidentMemRepos) {
+        this.accidentMemRepos = accidentMemRepos;
     }
 
     public void createOrUpdate(Accident accident) {
-
-        accidentMem.createOrUpdate(accident);
+        accidentMemRepos.createOrUpdate(accident);
     }
 
     public Accident find(int id) {
-        return accidentMem.find(id);
+        return accidentMemRepos.find(id);
     }
 
     public AccidentType findAccidentType(int id) {
-        return accidentMem.findAccidentType(id);
+        return accidentMemRepos.findAccidentType(id);
     }
 
     public Rule findRule(int id) {
-        return accidentMem.findRule(id);
+        return accidentMemRepos.findRule(id);
     }
 
     public Collection<Accident> getAccidents() {
-        return accidentMem.getAccidents();
+        return accidentMemRepos.getAccidents();
     }
 
     public Collection<AccidentType> getLstAccType() {
-        return accidentMem.getLstAccType();
+        return accidentMemRepos.getLstAccType();
     }
 
     public Collection<Rule> getLstRules() {
-        return accidentMem.getLstRules();
+        return accidentMemRepos.getLstRules();
     }
 }
