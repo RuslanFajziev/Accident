@@ -17,12 +17,12 @@ public class AccidentServiceJdbc {
         this.accidentJdbcRepos = accidentJdbcRepos;
     }
 
-    public void createOrUpdate(Accident accident) {
-        accidentJdbcRepos.createOrUpdate(accident);
+    public void createOrUpdate(Accident accident, int typeId, int[] rIds) {
+        accidentJdbcRepos.createOrUpdate(accident, typeId, rIds);
     }
 
-    public List<Accident> getAll() {
-        return accidentJdbcRepos.getAll();
+    public List<Accident> getAllAccident() {
+        return accidentJdbcRepos.getAllAccident();
     }
 
     public Collection<AccidentType> getAllAccidentType() {
@@ -33,8 +33,8 @@ public class AccidentServiceJdbc {
         return accidentJdbcRepos.getAllRule();
     }
 
-    public Accident find(int id) {
-        return accidentJdbcRepos.find(id);
+    public Accident findAccident(int id) {
+        return accidentJdbcRepos.findAccident(id);
     }
 
     public AccidentType findAccidentType(int id) {

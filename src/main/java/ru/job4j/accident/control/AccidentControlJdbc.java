@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.accident.model.Accident;
-import ru.job4j.accident.model.Rule;
 import ru.job4j.accident.service.AccidentServiceJdbc;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Controller
 public class AccidentControlJdbc {
@@ -22,8 +18,8 @@ public class AccidentControlJdbc {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("accidents", accidentServiceJdbc.getAll());
-        return "index_jdbc";
+        model.addAttribute("accidents", accidentServiceJdbc.getAllAccident());
+        return "index";
     }
 
     @GetMapping("/create")
@@ -43,28 +39,14 @@ public class AccidentControlJdbc {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Accident accident, int typeId, int[] rIds) {
-//        Set<Rule> hashSetRule = new HashSet<>();
-//        for (var rId : rIds) {
-//            hashSetRule.add(accidentService.findRule(rId));
-//        }
-//        accident.setRules(hashSetRule);
-//
-//        accident.setType(accidentService.findAccidentType(typeId));
-        accidentServiceJdbc.createOrUpdate(accident);
+        accidentServiceJdbc.createOrUpdate(accident, typeId, rIds);
         return "redirect:/";
     }
 
     @PostMapping("/updateEnd")
-    public String update(@ModelAttribute Accident accident, int id, int typeId, int[] rIds) {
-//        Set<Rule> hashSetRule = new HashSet<>();
-//        for (var rId : rIds) {
-//            hashSetRule.add(accidentService.findRule(rId));
-//        }
-//        accident.setRules(hashSetRule);
-
+    public String update(@ModelAttribute Accident accident, int typeId, int id, int[] rIds) {
         accident.setId(id);
-//        accident.setType(accidentService.findAccidentType(typeId));
-        accidentServiceJdbc.createOrUpdate(accident);
+        accidentServiceJdbc.createOrUpdate(accident, typeId, rIds);
         return "redirect:/";
     }
 }
