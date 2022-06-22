@@ -8,7 +8,7 @@ import ru.job4j.accident.model.Rule;
 
 import java.util.*;
 
-@Repository
+//@Repository
 public class AccidentJdbcRepos {
     private final JdbcTemplate jdbc;
 
@@ -64,7 +64,7 @@ public class AccidentJdbcRepos {
                     String textAcc = rs.getString("text");
                     String addressAcc = rs.getString("address");
                     int accidentTypeId = rs.getInt("accident_type_id");
-                    Accident accident = new Accident(namedAcc, textAcc, addressAcc);
+                    Accident accident = Accident.of(namedAcc, textAcc, addressAcc);
                     accident.setId(idAcc);
 
                     AccidentType accidentType = findAccidentType(accidentTypeId);
@@ -102,7 +102,7 @@ public class AccidentJdbcRepos {
                     String textAcc = rs.getString("text");
                     String addressAcc = rs.getString("address");
                     int accidentTypeId = rs.getInt("accident_type_id");
-                    Accident accident = new Accident(namedAcc, textAcc, addressAcc);
+                    Accident accident = Accident.of(namedAcc, textAcc, addressAcc);
                     accident.setId(idAcc);
 
                     AccidentType accidentType = findAccidentType(accidentTypeId);

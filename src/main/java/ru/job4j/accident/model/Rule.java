@@ -1,8 +1,12 @@
 package ru.job4j.accident.model;
 
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
+@Table(name = "Rule")
 public class Rule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
 
@@ -38,11 +42,19 @@ public class Rule {
             return false;
         }
         Rule rule = (Rule) o;
-        return id == rule.id;
+        return id == rule.id && Objects.equals(name, rule.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name);
+    }
+
+    @Override
+    public String toString() {
+        return "Rule{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + '}';
     }
 }

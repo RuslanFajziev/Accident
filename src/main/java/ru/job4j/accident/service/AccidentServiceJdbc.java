@@ -9,7 +9,7 @@ import ru.job4j.accident.repository.AccidentJdbcRepos;
 import java.util.Collection;
 import java.util.List;
 
-@Service
+//@Service
 public class AccidentServiceJdbc {
     private AccidentJdbcRepos accidentJdbcRepos;
 

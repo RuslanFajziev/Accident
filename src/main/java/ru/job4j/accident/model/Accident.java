@@ -1,21 +1,33 @@
 package ru.job4j.accident.model;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "Accident")
 public class Accident {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String text;
     private String address;
+    @ManyToOne
+    @JoinColumn(name = "accident_type_id")
     private AccidentType type;
 
-    private Set<Rule> rules;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "Accident_Rule")
+    private Set<Rule> rules = new HashSet<>();
 
-    public Accident(String name, String text, String address) {
-        this.name = name;
-        this.text = text;
-        this.address = address;
+    public static Accident of(String name, String text, String address) {
+        Accident accident = new Accident();
+        accident.name = name;
+        accident.text = text;
+        accident.address = address;
+        return accident;
     }
 
     public AccidentType getType() {
@@ -32,6 +44,10 @@ public class Accident {
 
     public void setRules(Set<Rule> rules) {
         this.rules = rules;
+    }
+
+    public void addSetRules(Rule rule) {
+        this.rules.add(rule);
     }
 
     public int getId() {
@@ -76,12 +92,13 @@ public class Accident {
         }
         Accident accident = (Accident) o;
         return id == accident.id && Objects.equals(name, accident.name)
-                && Objects.equals(text, accident.text) && Objects.equals(address, accident.address);
+                && Objects.equals(text, accident.text) && Objects.equals(address, accident.address)
+                && Objects.equals(type, accident.type) && Objects.equals(rules, accident.rules);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, text, address);
+        return Objects.hash(id, name, text, address, type, rules);
     }
 
     @Override
@@ -91,6 +108,8 @@ public class Accident {
                 + ", name='" + name + '\''
                 + ", text='" + text + '\''
                 + ", address='" + address + '\''
+                + ", type=" + type
+                + ", rules=" + rules
                 + '}';
     }
 }
