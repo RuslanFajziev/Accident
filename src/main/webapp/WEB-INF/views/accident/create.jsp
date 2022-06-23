@@ -61,8 +61,11 @@
             <tr>
                 <td>Статьи:</td>
                 <td>
-                    <select name="rIds" multiple>
+                    <select name="rIds" multiple required>
                         <c:forEach var="rule" items="${rules}" >
+<%--                            <c:if test="${rule.id < 2}">--%>
+<%--                                <option selected value="${rule.id}">${rule.name}</option>--%>
+<%--                            </c:if>--%>
                             <option value="${rule.id}">${rule.name}</option>
                         </c:forEach>
                     </select>

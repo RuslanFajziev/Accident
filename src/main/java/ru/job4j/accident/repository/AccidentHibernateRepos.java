@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 
 @Repository
 public class AccidentHibernateRepos {
@@ -20,58 +21,59 @@ public class AccidentHibernateRepos {
         this.sf = sf;
     }
 
-    public void createOrUpdate(Accident accident, int typeId, int[] rIds) {
+    private <T> T tx(final Function<Session, T> command) {
+        Session session = sf.openSession();
+        session.beginTransaction();
+        try {
+            T rsl = command.apply(session);
+            session.getTransaction().commit();
+            return rsl;
+        } catch (final Exception e) {
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            session.close();
+        }
+    }
+
+    public Accident createOrUpdate(Accident accident, int typeId, int[] rIds) {
         int idAcc = accident.getId();
         AccidentType accidentType = getAccidentType(typeId);
         accident.setType(accidentType);
 
-//        List<Rule> ruleList = getRuleForIds(rIds);
-//        Set<Rule> ruleSet = new HashSet<>(ruleList);
-//        accident.setRules(ruleSet);
+        List<Rule> ruleList = getRuleForIds(rIds);
+        Set<Rule> ruleSet = new HashSet<>(ruleList);
+        accident.setRules(ruleSet);
 
-        for (int id : rIds) {
-            accident.addSetRules(getRuleForId(id));
-        }
-
-        try (Session session = sf.openSession()) {
+        return tx(session -> {
             if (idAcc != 0) {
                 session.update(accident);
             } else {
                 session.save(accident);
             }
-        }
+            return accident;
+        });
     }
 
     public List<Accident> getAllAccident() {
-        try (Session session = sf.openSession()) {
-            String queryTxt = "from ru.job4j.accident.model.Accident acc join fetch acc.rules";
-            var query = session.createQuery(queryTxt, Accident.class);
-            return query.list();
-        }
+        String queryTxt = "select DISTINCT acc from ru.job4j.accident.model.Accident acc join fetch acc.rules";
+        return tx(session -> session.createQuery(queryTxt, Accident.class).list());
     }
 
     public List<AccidentType> getAllAccidentType() {
-        try (Session session = sf.openSession()) {
-            return session.createQuery("from ru.job4j.accident.model.AccidentType", AccidentType.class).list();
-        }
+        return tx(session -> session.createQuery("from ru.job4j.accident.model.AccidentType", AccidentType.class).list());
     }
 
     public List<Rule> getAllRule() {
-        try (Session session = sf.openSession()) {
-            return session.createQuery("from ru.job4j.accident.model.Rule", Rule.class).list();
-        }
+        return tx(session -> session.createQuery("from ru.job4j.accident.model.Rule", Rule.class).list());
     }
 
     public AccidentType getAccidentType(int id) {
-        try (Session session = sf.openSession()) {
-            return session.get(AccidentType.class, id);
-        }
+        return tx(session -> session.get(AccidentType.class, id));
     }
 
     public Rule getRuleForId(int id) {
-        try (Session session = sf.openSession()) {
-            return session.get(Rule.class, id);
-        }
+        return tx(session -> session.get(Rule.class, id));
     }
 
     public List<Rule> getRuleForIds(int[] rIds) {
@@ -81,8 +83,6 @@ public class AccidentHibernateRepos {
         }
         String queryIdsRule = String.join(",", lstIdsRule);
         String queryTxt = String.format("from ru.job4j.accident.model.Rule rul where rul.id IN (%s)", queryIdsRule);
-        try (Session session = sf.openSession()) {
-            return session.createQuery(queryTxt, Rule.class).list();
-        }
+        return tx(session -> session.createQuery(queryTxt, Rule.class).list());
     }
 }
