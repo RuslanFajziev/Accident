@@ -2,6 +2,7 @@ package ru.job4j.accident.model;
 
 import javax.persistence.*;
 import java.util.Objects;
+
 @Entity
 @Table(name = "Rule")
 public class Rule {

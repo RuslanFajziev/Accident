@@ -8,7 +8,7 @@ import ru.job4j.accident.repository.AccidentHibernateRepos;
 
 import java.util.List;
 
-@Service
+//@Service
 public class AccidentServiceHibernete {
     private AccidentHibernateRepos accidentHibernateRepos;
 

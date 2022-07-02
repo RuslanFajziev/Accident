@@ -18,7 +18,7 @@ public class Accident {
     @JoinColumn(name = "accident_type_id")
     private AccidentType type;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "Accident_Rule")
     private Set<Rule> rules = new HashSet<>();
 
