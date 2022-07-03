@@ -24,7 +24,7 @@
     <div class="row">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
             <a class="btn btn-secondary active" href="<c:url value='/create'/>" role="button">Добавить инцидент</a>
-            <a class="btn btn-secondary" href="<c:url value='/logout'/>" role="button">Logout<c:out value="${username}"/></a>
+            <a class="btn btn-secondary" href="<c:url value='/logout'/>" role="button">Logout ${user.username}</a>
         </div>
         <div class="card" style="width: 100%">
             <div class="card-header">

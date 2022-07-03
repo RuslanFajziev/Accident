@@ -46,6 +46,7 @@ public class AccidentControlSpringBootData {
 
     @GetMapping("/")
     public String index(Model model) {
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("accidents", accidentServiceSpringBootData.getAllAccident());
         return "index";
     }
