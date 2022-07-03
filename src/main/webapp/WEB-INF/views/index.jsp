@@ -22,7 +22,10 @@
 <body>
 <div class="container pt-3">
     <div class="row">
-        <a class="btn btn-dark" href="<c:url value='/create'/>" role="button">Добавить инцидент</a>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <a class="btn btn-secondary active" href="<c:url value='/create'/>" role="button">Добавить инцидент</a>
+            <a class="btn btn-secondary" href="<c:url value='/logout'/>" role="button">Logout<c:out value="${username}"/></a>
+        </div>
         <div class="card" style="width: 100%">
             <div class="card-header">
                 Список авто-нарушений
