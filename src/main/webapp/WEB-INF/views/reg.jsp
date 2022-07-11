@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Авторизация</title>
+    <title>Регистрация пользователя</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -19,26 +19,31 @@
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<c:if test="${not empty errorMessage}">
-    <div style="color:red; font-weight: bold; margin: 30px 0px;">
-            ${errorMessage}
-    </div>
-</c:if>
 <body>
 <div class="card-body" style="width: 50%">
-    <form name='login' action="<c:url value='/login'/>" method='POST'>
+    <form name='login' action="<c:url value='/reg'/>" method='POST'>
         <table class="table">
             <tbody>
             <tr>
                 <td>
-                    <label for="username">UserName:</label>
+                    <label for="username">username</label>
                     <input required type='text' name='username' id="username">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="password">Password:</label>
-                    <input required type='password' name='password' id="password">
+                    <label for="Password">Password</label>
+                    <input required type='password' name='Password' id="Password">
+                </td>
+            </tr>
+            <tr>
+                <td>Роль:</td>
+                <td>
+                    <select name="authorityId">
+                        <c:forEach var="authority" items="${authorities}">
+                            <option value="${authority.id}">${authority.authority}</option>
+                        </c:forEach>
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -46,10 +51,9 @@
             </tr>
             </tbody>
         </table>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <a class="btn btn-secondary" href="<c:url value='/reg'/>" role="button">Регистрация</a>
+        <a class="btn btn-secondary" href="<c:url value='/login'/>" role="button">Авторизация</a>
     </div>
 </div>
 </body>
