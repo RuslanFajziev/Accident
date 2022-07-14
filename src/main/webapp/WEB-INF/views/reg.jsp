@@ -47,7 +47,7 @@
                 </td>
             </tr>
             <tr>
-                <td><input name="submit" type="submit" value="Сохранить"/></td>
+                <td><input name="submit" type="submit" value="OK"/></td>
             </tr>
             </tbody>
         </table>

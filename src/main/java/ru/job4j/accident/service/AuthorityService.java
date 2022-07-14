@@ -19,7 +19,7 @@ public class AuthorityService {
         Iterable<Authority> authorityIterable = authorityRepository.findAll();
         Authority rsl = new Authority();
         for (Authority elm : authorityIterable) {
-            if (elm.getAuthority() == authority) {
+            if (elm.getAuthority().equals(authority)) {
                 rsl = elm;
                 break;
             }

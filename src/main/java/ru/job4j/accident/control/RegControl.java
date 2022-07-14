@@ -24,12 +24,19 @@ public class RegControl {
     }
 
     @PostMapping("/reg")
-    public String regSave(@ModelAttribute User user, int authorityId) {
-        user.setEnabled(true);
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setAuthority(authorityService.findById(authorityId));
-        userService.save(user);
-        return "redirect:/login";
+    public String regSave(@ModelAttribute User user, int authorityId, Model model) {
+        String userName = user.getUsername();
+        if (userService.checkUser(user)) {
+            String errorMessage = "There is already a user with this var, try another NAME!!".replace("var", userName);
+            model.addAttribute("errorMessage", errorMessage);
+            return "login";
+        } else {
+            user.setEnabled(true);
+            user.setPassword(encoder.encode(user.getPassword()));
+            user.setAuthority(authorityService.findById(authorityId));
+            userService.save(user);
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/reg")
