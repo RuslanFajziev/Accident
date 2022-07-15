@@ -6,6 +6,7 @@ import ru.job4j.accident.repository.AuthorityRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AuthorityService {
@@ -16,15 +17,11 @@ public class AuthorityService {
     }
 
     public Authority findByAuthority(String authority) {
-        Iterable<Authority> authorityIterable = authorityRepository.findAll();
-        Authority rsl = new Authority();
-        for (Authority elm : authorityIterable) {
-            if (elm.getAuthority().equals(authority)) {
-                rsl = elm;
-                break;
-            }
+        Optional<Authority> optionalAuthority = authorityRepository.findAuthorityByAuthority(authority);
+        if (optionalAuthority.isPresent()) {
+            return optionalAuthority.get();
         }
-        return rsl;
+        return new Authority();
     }
 
     public Authority findById(int id) {

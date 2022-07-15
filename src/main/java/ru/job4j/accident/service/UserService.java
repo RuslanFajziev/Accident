@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import ru.job4j.accident.model.User;
 import ru.job4j.accident.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private UserRepository userRepository;
@@ -17,15 +19,7 @@ public class UserService {
     }
 
     public Boolean checkUser(User user) {
-        Boolean rsl = false;
-        String nameUser = user.getUsername();
-        Iterable<User> userIterable = userRepository.findAll();
-        for (User elm : userIterable) {
-            if (elm.getUsername().equals(nameUser)) {
-                rsl = true;
-                break;
-            }
-        }
-        return rsl;
+        Optional<User> userOptional = userRepository.findUserByUsername(user.getUsername());
+        return userOptional.isPresent();
     }
 }
